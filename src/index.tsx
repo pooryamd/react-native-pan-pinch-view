@@ -24,6 +24,7 @@ export default forwardRef(function PanPinchView(
     contentDimensions = { width: 0, height: 0 },
     minScale = 0.5,
     maxScale = 4,
+    rotate = false,
     initialScale = 1,
     children,
   }: PanPinchViewProps,
@@ -46,9 +47,10 @@ export default forwardRef(function PanPinchView(
   const isAndroidPinchActivated = useSharedValue(false);
 
   const contentSize = useVector(
-    contentDimensions.width,
-    contentDimensions.height
+    !rotate ? contentDimensions.width : contentDimensions.height,
+    !rotate ? contentDimensions.height : contentDimensions.width,
   );
+  const rotateVal = rotate ? '90 deg' : '0 deg';
 
   const setContentSize = ({
     width,
@@ -98,7 +100,7 @@ export default forwardRef(function PanPinchView(
     const translateX = offset.x.value + translation.x.value;
     const translateY = offset.y.value + translation.y.value;
     return {
-      transform: [{ translateX }, { translateY }, { scale: scale.value }],
+      transform: [{ translateX }, { translateY }, { scale: scale.value }, { rotate: rotateVal }],
     };
   });
 
