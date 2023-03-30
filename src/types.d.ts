@@ -25,7 +25,11 @@ export type PanPinchViewProps = {
    * @default 0.5
    */
   minScale?: number;
-
+  /**
+   * Ability to rotate.
+   * @default false
+   */
+  rotate = false,
   /**
    * Maximum value of scale.
    * @default 4
